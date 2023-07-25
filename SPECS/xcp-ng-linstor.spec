@@ -1,7 +1,7 @@
 Summary: Install all LINSTOR dependencies
 Name: xcp-ng-linstor
 Version: 1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
 BuildArch: noarch
@@ -15,7 +15,6 @@ Requires: linstor-controller
 Requires: linstor-satellite
 
 # To remove after stable release of LINSTOR.
-Requires: blktap-linstor
 Requires: sm-linstor
 
 %description
@@ -28,6 +27,9 @@ install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/xapi.conf.d/99-enable-sm
 %{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
 
 %changelog
+* Tue Jun 25 2023 Ronan Abhamon <ronan.abhamon@vates.fr> - 1.1-3
+- Remove blktap requirement.
+
 * Tue Jun 20 2023 Ronan Abhamon <ronan.abhamon@vates.fr> - 1.1-2
 - Add Requires to install specific versions of blktap and sm.
 
