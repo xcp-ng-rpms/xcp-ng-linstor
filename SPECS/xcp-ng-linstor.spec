@@ -1,7 +1,7 @@
 Summary: Install all LINSTOR dependencies
 Name: xcp-ng-linstor
 Version: 1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
 BuildArch: noarch
@@ -24,6 +24,9 @@ install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/xapi.conf.d/99-enable-sm
 %{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
 
 %changelog
+* Mon Sep 16 2024 Damien Thenot <damien.thenot@vates.tech> - 1.2-2
+- Add largeblock to 99-enable-sm-driver-linstor.conf.
+
 * Wed Jun 28 2023 Ronan Abhamon <ronan.abhamon@vates.fr> - 1.2-1
 - Build for XCP-ng 8.3.
 - Remove blktap and sm requirements.
