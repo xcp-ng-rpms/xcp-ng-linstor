@@ -1,7 +1,7 @@
 Summary: Install all LINSTOR dependencies
 Name: xcp-ng-linstor
 Version: 1.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
 BuildArch: noarch
@@ -11,8 +11,8 @@ Requires: drbd-reactor
 Requires: http-nbd-transfer
 Requires: kmod-drbd
 Requires: linstor-client
-Requires: linstor-controller >= 1.29.2
-Requires: linstor-satellite >= 1.29.2
+Requires: linstor-controller >= 1.33.0~rc.2-1
+Requires: linstor-satellite >= 1.33.0~rc.2-1
 
 %description
 Install all LINSTOR dependencies from LINSTOR XCP-ng repository.
@@ -24,6 +24,9 @@ install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/xapi.conf.d/99-enable-sm
 %{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
 
 %changelog
+* Wed Dec 10 2025 Ronan Abhamon <ronan.abhamon@vates.tech> - 1.2-4
+- Update controller/satellite requires to 1.33.0~rc.2-1.
+
 * Fri Oct 31 2025 Damien Thenot <damien.thenot@vates.tech> - 1.2-3
 - Add version requirements
 
