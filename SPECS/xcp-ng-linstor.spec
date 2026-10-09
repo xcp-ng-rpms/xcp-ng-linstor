@@ -1,10 +1,13 @@
 Summary: Install all LINSTOR dependencies
 Name: xcp-ng-linstor
 Version: 1.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
+Source1: xcp-ng-linstor.conf
 BuildArch: noarch
+
+BuildRequires: systemd
 
 Requires: drbd
 Requires: drbd-reactor
@@ -13,20 +16,30 @@ Requires: kmod-drbd
 Requires: linstor-client
 Requires: linstor-controller >= 1.33.1
 Requires: linstor-satellite >= 1.33.1
+Requires: systemd
 
 %description
 Install all LINSTOR dependencies from LINSTOR XCP-ng repository.
 
 %install
 install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
+install -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/xapi-domains.service.d/xcp-ng-linstor.conf
 
 %files
 %{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
+%dir %{_unitdir}/xapi-domains.service.d
+%{_unitdir}/xapi-domains.service.d/xcp-ng-linstor.conf
 
-%triggerin -- drbd-reactor
+%post
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+
+%triggerin -- drbd-reactor linstor-controller linstor-satellite
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 09 2026 Gaëtan Lehmann <gaetan.lehmann@vates.tech> - 1.2-7
+- Ensure LINSTOR services shut down after xapi-domains.
+
 * Fri Feb 06 2026 Ronan Abhamon <ronan.abhamon@vates.tech> - 1.2-6
 - Update controller/satellite requires to 1.33.1.
 
