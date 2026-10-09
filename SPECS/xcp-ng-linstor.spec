@@ -1,7 +1,7 @@
 Summary: Install all LINSTOR dependencies
 Name: xcp-ng-linstor
 Version: 1.2
-Release: 7%{?dist}
+Release: 7~gln.1%{?dist}
 License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
 Source1: xcp-ng-linstor.conf
