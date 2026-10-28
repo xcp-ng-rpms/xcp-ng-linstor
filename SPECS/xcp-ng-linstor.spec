@@ -6,6 +6,7 @@ License: GPLv2
 Source0: 99-enable-sm-driver-linstor.conf
 Source1: xcp-ng-linstor.conf
 Source2: xcp-ng-linstor-java-env.conf
+Source3: systemd-219-workarounds.conf
 BuildArch: noarch
 
 BuildRequires: systemd
@@ -27,6 +28,7 @@ install -D -m 644 %{SOURCE0} %{buildroot}%{_sysconfdir}/xapi.conf.d/99-enable-sm
 install -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/xapi-domains.service.d/xcp-ng-linstor.conf
 install -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/linstor-controller.service.d/xcp-ng-linstor-java-env.conf
 install -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/linstor-satellite.service.d/xcp-ng-linstor-java-env.conf
+install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/linstor-controller.service.d/systemd-219-workarounds.conf
 
 %files
 %{_sysconfdir}/xapi.conf.d/99-enable-sm-driver-linstor.conf
@@ -36,6 +38,7 @@ install -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/linstor-satellite.service.d
 %dir %{_unitdir}/linstor-satellite.service.d
 %{_unitdir}/linstor-controller.service.d/xcp-ng-linstor-java-env.conf
 %{_unitdir}/linstor-satellite.service.d/xcp-ng-linstor-java-env.conf
+%{_unitdir}/linstor-controller.service.d/systemd-219-workarounds.conf
 
 %post
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -47,6 +50,7 @@ install -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/linstor-satellite.service.d
 * Mon Oct 26 2026 Alexandre Sollier <alexandre.sollier@vates.tech> - 1.2-8
 - Update controller/satellite requires to 1.35.3.
 - Set the `JAVA_HOME` environment variable on the controller/satellite services for XCP-ng's Java 21 distribution.
+- Add overrides to work around unsupported features of XCP-ng 8.3's systemd version.
 
 * Fri Oct 09 2026 Gaëtan Lehmann <gaetan.lehmann@vates.tech> - 1.2-7
 - Ensure LINSTOR services shut down after xapi-domains.
